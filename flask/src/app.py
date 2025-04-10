@@ -6,6 +6,9 @@ load_dotenv()
 
 app = Flask(__name__)
 DEPLOYMENT=os.environ.get('DEPLOYMENT')
+HOST=os.environ.get('HOST')
+PORT=os.environ.get('PORT')
+
 
 @app.route('/')
 def index():
@@ -14,9 +17,9 @@ def index():
 
 if __name__ == '__main__':
     if DEPLOYMENT=='dev':
-        app.run(host='0.0.0.0', port=6969, debug=True)
-    elif DEPLOYMENT=='production':
+        app.run(host=HOST, port=PORT, debug=True)
+    elif DEPLOYMENT=='prod':
         from waitress import serve
-        serve(app, host="0.0.0.0", port=6969)
+        serve(app, host=HOST, port=PORT)
     else:
         print("Error")
